@@ -19,17 +19,17 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN  apt-get install openjdk-8-jre -y
 RUN apt-get install curl -y
 
-COPY .kube /root/.kube
-COPY ca.crt /root/ca.crt
-COPY client.crt /root/client.crt
-COPY client.key /root/client.key
+COPY /root/.kube /root/.kube
+COPY /root/ca.crt /root/ca.crt
+COPY /root/client.crt /root/client.crt
+COPY /root/client.key /root/client.key
 
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl 
 
 	
 RUN chmod +x ./kubectl
-RUN mv ./kubectl /usr/bin/kubectl
+RUN mv /root/./kubectl /usr/bin/kubectl
 
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
